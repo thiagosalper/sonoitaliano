@@ -1,0 +1,1 @@
+// class para consumir os endpoints firebase
