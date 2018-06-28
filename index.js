@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
 import App from './src';
 
-AppRegistry.registerComponent('sonoitaliano', () => App);
+AppRegistry.registerComponent('SonoItaliano', () => App);

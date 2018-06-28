@@ -1,4 +1,4 @@
-package com.sonoitaliano;
+package com.thiagosalper.cidadaniaitaliana;
 
 import android.app.Application;
 

@@ -1,6 +1,18 @@
 import React from 'react';
-import {Text,View,Button,TextInput,TouchableHighlight,Switch,ScrollView} from 'react-native';
-import {Base,H1} from '../../components';
+import {
+    Text,
+    View,
+    Button,
+    TextInput,
+    TouchableHighlight,
+    Switch,
+    ScrollView,
+    AsyncStorage,
+    BackHandler,
+    Alert} from 'react-native';
+import {
+    Base,
+    H1} from '../../components';
 
 const style = {
     secoes: {
@@ -24,32 +36,47 @@ export default class Home extends React.Component {
             estaNaItalia: false,
             possuiCidadania: false
         };
+
+        this.clearDados = this.clearDados.bind(this);
     }
+
+    getDados = async () => {
+        try {
+            const value = await AsyncStorage.getItem('USUARIO');
+            if (value !== null) {
+                const dados = JSON.parse(value);
+                this.setState(dados);
+            }
+        } catch (error) {
+            // Error retrieving data
+        }
+    }
+
+    clearDados = () => {
+        AsyncStorage.removeItem('USUARIO');
+        
+        Alert.alert(
+            'Sair',
+            'Deseja sair do app?',
+            [
+                {text: 'Não', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'Sim', onPress: () => BackHandler.exitApp()},
+            ],
+            { cancelable: false }
+        );
+
+    }
+
+    componentDidMount = () => {
+        this.getDados();
+    }
+
     render() {
         return (
             <Base>
-                <TextInput
-                    style={{color:'#fff'}}
-                    onChangeText={(text) => this.setState({nome:text})}
-                    value={this.state.nome}
-                    placeholder={'Qual seu nome?'}
-                />
-                
                 <H1>Olá, {this.state.nome}</H1>
 
-                <View style={{justifyContent: 'space-between',flexDirection: 'row'}}>
-                    <Text>Já está na Itália</Text>
-                    <Switch
-                    onValueChange={(value) => this.setState({...this.state,estaNaItalia:value})}
-                    value={this.state.estaNaItalia} />
-                </View>
-
-                <View style={{justifyContent: 'space-between',flexDirection: 'row'}}>
-                    <Text>Já possui cidadania?</Text>
-                    <Switch
-                    onValueChange={(value) => this.setState({...this.state,possuiCidadania:value})}
-                    value={this.state.possuiCidadania} />
-                </View>
+                <Text onPress={()=>this.clearDados()}>Sair</Text>
                 
                 <H1>Recursos</H1>
                 <ScrollView>

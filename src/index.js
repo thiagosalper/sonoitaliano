@@ -5,6 +5,7 @@ import {createStackNavigator} from 'react-navigation';
 // pages 
 import Step from './containers/Step';
 import Home from './containers/Home';
+import Config from './containers/Config';
 import Consul from './containers/Consul';
 import ConsulDetails from './containers/Consul/consuldetails';
 import Links from './containers/Consul/links';
@@ -17,10 +18,16 @@ const Route = createStackNavigator({
             header: null 
         }
     },
+    Config: {screen: Config,
+        navigationOptions:  {
+            title: '',
+            header: null
+        }
+    },
     Home: {screen: Home,
         navigationOptions:  {
             title: 'Sono Italiano!',
-            headerLeft: null
+            header: null
         }
     },
     Consul: {screen: Consul}, 

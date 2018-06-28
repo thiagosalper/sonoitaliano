@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,Text,TouchableOpacity,Image} from 'react-native';
+import {View,Text,TouchableOpacity,Image,AsyncStorage} from 'react-native';
 //import StepIndicator from 'react-native-step-indicator';
 import {IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator} from 'rn-viewpager';
 
@@ -9,6 +9,18 @@ export default class Step extends React.Component {
         super(props);
         this.state = {
             currentPage:0
+        }
+        this.getDados();
+    }
+
+    getDados = async () => {
+        try {
+            const value = await AsyncStorage.getItem('USUARIO');
+            if (value !== null) {
+                this.props.navigation.push('Home');
+            }
+        } catch (error) {
+            // Error retrieving data
         }
     }
     
@@ -54,7 +66,7 @@ export default class Step extends React.Component {
                     right: 16
                 }}
                 activeOpacity={0.6}
-                onPress={()=>this.props.navigation.push('Home')} >
+                onPress={()=>this.props.navigation.push('Config')} >
                 <Image
                     source={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAJUlEQVR42mNgAILy8vL/DLgASBKnApgkVgXIkhgKiNKJ005s4gDLbCZBiSxfygAAAABJRU5ErkJggg=='}}
                     style={{
