@@ -42,17 +42,29 @@ export default class Step extends React.Component {
                 <IndicatorViewPager
                     style={{height:'100%'}}
                     indicator={this._renderDotIndicator()}>
-                    <View style={{backgroundColor:'cadetblue'}}>
-                        <Text>page one</Text>
+                    <View style={{backgroundColor:'#599000',flex: 1,flexDirection: 'column',justifyContent: 'center',alignItems: 'center'}}>
+                        <Image
+                        style={{marginBottom:30,height:190,width:152}}
+                        source={require('../../img/img_ajuda.png')}
+                        />
+                        <Text style={{color: '#FFFFFF', fontSize: 24}}>ENCONTRE AJUDA</Text>
                     </View>
-                    <View style={{backgroundColor:'cornflowerblue'}}>
-                        <Text>page two</Text>
+                    <View style={{backgroundColor:'#FFFFFF',flex: 1,flexDirection: 'column',justifyContent: 'center',alignItems: 'center'}}>
+                        <Image
+                        style={{marginBottom:30,height:190,width:190}}
+                            source={require('../../img/img_recurso.png')}
+                        />
+                        <Text style={{color: '#CCCCCC', fontSize: 24}}>ORGANIZE SEUS RECURSOS</Text>
                     </View>
-                    <View style={{backgroundColor:'#1AA094'}}>
-                        <Text>page three</Text>
+                    <View style={{backgroundColor:'#BC2D2D',flex: 1,flexDirection: 'column',justifyContent: 'center',alignItems: 'center'}}>
+                        <Image
+                        style={{marginBottom:30,height:190,width:190}}
+                            source={require('../../img/img_saga.png')} />
+                        <Text style={{color: '#FFFFFF', fontSize: 24}}>ACOMPANHE SUA SAGA</Text>
+                        {this._renderBackBtn()}
                     </View>
                 </IndicatorViewPager>
-                 {this._renderBackBtn()}
+                 
             </View>
         );
     }
@@ -68,11 +80,10 @@ export default class Step extends React.Component {
                 activeOpacity={0.6}
                 onPress={()=>this.props.navigation.push('Config')} >
                 <Image
-                    source={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAJUlEQVR42mNgAILy8vL/DLgASBKnApgkVgXIkhgKiNKJ005s4gDLbCZBiSxfygAAAABJRU5ErkJggg=='}}
+                    source={require('../../img/arrow_right.png')}
                     style={{
-                        width: 32,
-                        height: 32,
-                        tintColor: 0XFFFFFFDD
+                        width: 17,
+                        height: 32
                     }}
                 />
             </TouchableOpacity>

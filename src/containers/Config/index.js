@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text,View,Button,TextInput,TouchableHighlight,Switch,ScrollView,AsyncStorage,Alert} from 'react-native';
+import {Text,View,Button,TextInput,TouchableHighlight,Switch,ScrollView,AsyncStorage,Alert,Image,TouchableOpacity} from 'react-native';
 import {Base,H1} from '../../components';
 
 const style = {
@@ -10,8 +10,9 @@ const style = {
     },
     continuar: {
         flex: 1,
-        backgroundColor: 'red', 
-
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#89D349'
     }
 }
 
@@ -61,6 +62,10 @@ export default class Config extends React.Component {
         return (
             <View style={{flex:1}}>
                 <View style={style.form}>
+                    <Image
+                        style={{marginBottom:30,height:120,width:94}}
+                            source={require('../../img/img_config.png')} />
+
                     <Text>Informe seu nome</Text>
                     <TextInput
                         style={{color:'#fff'}}
@@ -84,7 +89,13 @@ export default class Config extends React.Component {
                     </View>
 
                 </View>
-                <Text style={style.continuar} onPress={()=>this.setDados()}>Continuar</Text>
+                <TouchableOpacity
+                    style={style.continuar}
+                    activeOpacity={0.6}
+                    onPress={()=>this.setDados()} >
+                    <Text style={{color:'#FFFFFF'}}>Continuar</Text>
+                </TouchableOpacity>
+                
             </View>
         );
     }
