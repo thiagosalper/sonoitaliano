@@ -25,7 +25,7 @@ export default class Step extends React.Component {
     }
     
     componentDidMount = () => {
-
+        
     }
 
     componentWillReceiveProps = (nextProps,nextState) =>{

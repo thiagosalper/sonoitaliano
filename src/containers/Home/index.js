@@ -3,6 +3,7 @@ import {
     Text,
     View,
     Button,
+    Image,
     TextInput,
     TouchableHighlight,
     Switch,
@@ -15,6 +16,27 @@ import {
     H1} from '../../components';
 
 const style = {
+    header: {
+        backgroundColor: '#BC2D2D',
+        padding: 16,
+        marginLeft: -16,
+        marginRight: -16,
+        
+        user: {
+            flexDirection: 'row',
+            justifyContent: 'space-between', 
+            alignItems: 'center',
+            padding: 16,
+            backgroundColor: '#A22222'
+        },
+        frases: {
+            paddingVertical:24,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center', 
+            fontSize:14
+        }
+    },
     secoes: {
         flexDirection: 'column',
         justifyContent: 'center',
@@ -28,6 +50,9 @@ const style = {
         alignItems: 'center'
     }
 }
+
+
+
 export default class Home extends React.Component {
     constructor(props){
         super(props);
@@ -37,7 +62,9 @@ export default class Home extends React.Component {
             possuiCidadania: false
         };
 
-        this.clearDados = this.clearDados.bind(this);
+        this.clearDados = this.clearDados.bind(this);       
+        
+        
     }
 
     getDados = async () => {
@@ -72,42 +99,54 @@ export default class Home extends React.Component {
     }
 
     render() {
+        
         return (
-            <Base>
-                <H1>Olá, {this.state.nome}</H1>
+            <View style={{flex:1}}>
+                <View style={style.header}>
+                    <View style={style.header.user}>
+                        <Image
+                            source={require('../../img/ic_user.png')}
+                            style={{
+                                width: 48,
+                                height: 48
+                            }}
+                        />
+                        <Text style={{color: '#FFFFFF',fontSize:18}}>CIAO, {this.state.nome}</Text>
+                        <TouchableHighlight onPress={()=>this.clearDados()}>
+                            <Image
+                                source={require('../../img/ic_exit.png')}
+                                style={{
+                                    width: 30,
+                                    height: 32
+                                }}
+                            />
+                        </TouchableHighlight>
+                    </View>
+                    
+                    <View style={style.header.frases}>
+                        <Text style={{color: '#FFFFFF',fontSize:14}}>“ Frases motivacionais aqui todo dia aleatórias. “</Text>
+                        <Text style={{color: '#FFFFFF',fontSize:11}}>fonte nome aqui</Text>
+                    </View>
+                </View>
 
-                <Text onPress={()=>this.clearDados()}>Sair</Text>
-                
-                <H1>Recursos</H1>
-                <ScrollView>
-                    <TouchableHighlight style={style.baseButton} onPress={()=>this.props.navigation.push('Consul')}>
+    
+                <ScrollView style={{padding:16}}>
+
+                    <TouchableHighlight style={style.baseButton} onPress={()=>this.props.navigation.push("Consul")}>
                         <View>
-                        <Text>recursos de</Text>
                         <Text>Consulados</Text>
                         </View>
                     </TouchableHighlight>
-                    <TouchableHighlight style={style.baseButton} onPress={()=>this.props.navigation.push('Home')}>
-                    <View>
-                        <Text>ajuda na</Text>
-                        <Text>Itália</Text>
+
+                    <TouchableHighlight style={style.baseButton} onPress={()=>this.props.navigation.push("Config")}>
+                        <View>
+                        <Text>Configurações</Text>
                         </View>
                     </TouchableHighlight>
-                    <TouchableHighlight style={style.baseButton} onPress={()=>this.props.navigation.push('Consul')}>
-                    <View>
-                        <Text>estou na Itália</Text>
-                        <Text>Ofereço ajuda</Text>
-                        </View>
-                    </TouchableHighlight>
-                    <TouchableHighlight style={style.baseButton} onPress={()=>this.props.navigation.push('Home')}>
-                    <View>
-                        <Text>sobre o</Text>
-                        <Text>App</Text>
-                        </View>
-                    </TouchableHighlight>
-                    
+
                 </ScrollView>
                 
-            </Base>
+            </View>
         );
     }
 }

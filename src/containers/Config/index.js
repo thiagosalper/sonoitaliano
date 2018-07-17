@@ -1,6 +1,8 @@
 import React from 'react';
-import {Text,View,Button,TextInput,TouchableHighlight,Switch,ScrollView,AsyncStorage,Alert,Image,TouchableOpacity} from 'react-native';
+import {Text,View,Button,TextInput,TouchableHighlight,Switch,ScrollView,AsyncStorage,Alert,Image,TouchableOpacity,KeyboardAvoidingView} from 'react-native';
 import {Base,H1} from '../../components';
+
+import firebase from '../../services/firebase';
 
 const style = {
     form: {
@@ -21,6 +23,7 @@ export default class Config extends React.Component {
         super(props);
         this.state = { 
             nome: '',
+            email: '',
             estaNaItalia: false,
             possuiCidadania: false
         };
@@ -42,20 +45,26 @@ export default class Config extends React.Component {
     }
 
     setDados = async () => {
-        const dados = JSON.stringify(this.state);
+        // verificar se preencheu os dados antes
+
+        // aqui salvar no firebase  
+        const userref = firebase.database().ref('usuario');
+        const keyuser = userref.push(this.state).getKey();
+
+        this.setState({...this.state, keyuser: keyuser}); // salvar a chave do usuario
+
         try {
-            await AsyncStorage.setItem('USUARIO', dados, () => {
-                // aqui salvar no firebase
+            await AsyncStorage.setItem('USUARIO', JSON.stringify(this.state), () => {
+                // redireciona
                 this.props.navigation.push('Home');
             });
         }catch(error){
             Alert.alert("Ops. Ocorreu um erro, tente novamente.");
         }
-
     }
 
     componentDidMount = () => {
-        this.getDados();
+        this.getDados(); 
     }
 
     render() {
@@ -68,7 +77,6 @@ export default class Config extends React.Component {
 
                     <Text>Informe seu nome</Text>
                     <TextInput
-                        style={{color:'#fff'}}
                         onChangeText={(text) => this.setState({nome:text})}
                         value={this.state.nome}
                         placeholder={'Como devemos lhe chamar?'}
@@ -87,6 +95,14 @@ export default class Config extends React.Component {
                         onValueChange={(value) => this.setState({...this.state,estaNaItalia:value})}
                         value={this.state.estaNaItalia} />
                     </View>
+
+                    <Text>E-mail para receber atualizações</Text>
+                    <TextInput
+                        onChangeText={(text) => this.setState({email:text})}
+                        value={this.state.email}
+                        placeholder={'email@exemplo.com'}
+                    />
+                    <Text>* não é o brigatório</Text>
 
                 </View>
                 <TouchableOpacity

@@ -5,8 +5,7 @@ const style = {
     base: {
         flex: 1,
         paddingHorizontal: 16,
-        paddingVertical: 16,
-        backgroundColor: 'powderblue'
+        paddingVertical: 16
     }
 }
 export default class Base extends React.Component {
